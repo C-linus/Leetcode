@@ -6,7 +6,7 @@
 int min(int *arr,int size,int *minIndex)
 {
 	int min = *arr;
-	int *minIndex = 0;
+	*minIndex = 0;
 	for(int i = 1; i < size; i++)
 	{
 		if(min > *(arr + i))
@@ -38,3 +38,10 @@ int profit(int *arr, int size)
 	return (maximum != 0) ? (maximum - minimum) : 0;
 }
 
+int main()
+{
+	int arr[] = {7,6,4,3,1};
+	int size = sizeof(arr) / sizeof(int);
+	printf("The profit is:%d\n",profit(arr,size));
+	return EXIT_SUCCESS;
+}
