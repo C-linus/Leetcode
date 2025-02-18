@@ -3,6 +3,8 @@
  */
 
  #include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 typedef struct stack{
     int *arr;
@@ -19,11 +21,11 @@ Stack* init_stack(int size)
     return stack;
 }
 
-void free_stack(Stack* stack)
+void free_stack(Stack** stack)
 {
-    free(stack->arr);
-    stack->size = 0;
-    stack->esp = -1;
+    free((*stack)->arr);
+    free(*stack);
+    *stack = NULL;
 }
 
 bool is_full(Stack* stack)
@@ -91,7 +93,7 @@ int* nextGreaterElement(int* nums1, int nums1Size, int* nums2, int nums2Size, in
         push(stack,element);
     }
 
-    free_stack(stack);
+    free_stack(&stack);
 
     for(int i = 0; i < nums1Size; i++)
     {
@@ -109,3 +111,25 @@ int* nextGreaterElement(int* nums1, int nums1Size, int* nums2, int nums2Size, in
 
 
 }
+
+void print_arr(int* arr, int size)
+{
+	for(int i = 0; i < size; i++)
+		printf("%d ",*(arr + i));
+	printf("\n");
+}
+
+
+int main()
+{
+
+	int nums1[] = {4,1,2};
+	int nums1Size = sizeof(nums1) / sizeof(int);
+	int nums2[] = {1,3,4,2};
+	int nums2Size = sizeof(nums2) / sizeof(int);
+	int returnSize = 0;
+	print_arr(nextGreaterElement(nums1,nums1Size,nums2,nums2Size,&returnSize),returnSize);
+	return EXIT_SUCCESS;
+
+}
+
